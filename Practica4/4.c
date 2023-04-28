@@ -1,35 +1,53 @@
 #include <stdio.h>
 #include <stdlib.h>
-void reseervar_memoria(int **arreglo);
-void inicializar(int **arreglo, int dimF);
 
+// Declaración de funciones
+void reservar_memoria(float **arreglo, int n);
+void inicializar(float *arreglo, int n);
+float calcular_promedio(float *arreglo, int n);
 
-int main(){
-    int max = INT16_MIN;
-    int *arreglo;
+int main() {
     int n;
-    printf("Ingrese un numero: ");
+    float *arreglo;
+    float promedio;
+
+    printf("Ingrese un numero entero n: ");
     scanf("%d", &n);
+
+    // Reservar memoria para el arreglo de float
     reservar_memoria(&arreglo, n);
-    inicializar(&arreglo, n);
-    printf("Numeros: \n");
-    for (int i = 0; i < n; i++){
-        printf("%d \n", arreglo[i]);
-    }
-    for (int i = 0; i < n; i++){
-        if (arreglo[i] > max) max = arreglo[i];
-    }
-    printf("El maximo es : %d \n", max);
+
+    // Inicializar el arreglo con valores ingresados por teclado
+    inicializar(arreglo, n);
+
+    // Calcular e imprimir el promedio
+    promedio = calcular_promedio(arreglo, n);
+    printf("El promedio es: %.2f\n", promedio);
+
+    // Liberar la memoria reservada dinámicamente
     free(arreglo);
+
     return 0;
 }
 
-void reservar_memoria(int **arreglo, int dimF){
-    *arreglo = (int *) malloc(dimF * sizeof(int));
+// Función para reservar memoria para el arreglo de float
+void reservar_memoria(float **arreglo, int n) {
+    *arreglo = (float *) malloc(n * sizeof(float));
 }
 
-void inicializar(int **arreglo, int dimF){
-    for (int i = 0; i < dimF; i++){
-        *arreglo[i] = rand();
+// Función para inicializar el arreglo con valores ingresados por teclado
+void inicializar(float *arreglo, int n) {
+    printf("Ingrese los %d numeros flotantes:\n", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%f", &arreglo[i]);
     }
+}
+
+// Función para calcular el promedio de los elementos del arreglo
+float calcular_promedio(float *arreglo, int n) {
+    float suma = 0;
+    for (int i = 0; i < n; i++) {
+        suma += arreglo[i];
+    }
+    return suma / n;
 }
