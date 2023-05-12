@@ -4,6 +4,7 @@
 
 int **iniciar_matriz(int dim);
 void imprimir_matriz(int **matriz, int dim);
+void eliminar_matriz(int ***matriz, int dim);
 
 int main()
 {
@@ -13,6 +14,8 @@ int main()
   scanf("%d", &dim);
   matriz = iniciar_matriz(dim);
   imprimir_matriz(matriz, dim);
+  eliminar_matriz(&matriz, dim);
+  // printf("%d", matriz == NULL);
   return 0;
 }
 
@@ -26,7 +29,10 @@ int **iniciar_matriz(int dim)
   {
     matriz[i] = malloc(i * sizeof(int));
     for (j = 0; i >= j; j++)
-      matriz[i][j] = rand() % 21;
+      if (j == 0 || j == i)
+        matriz[i][j] = 1;
+      else
+        matriz[i][j] = matriz[i - 1][j] + matriz[i - 1][j - 1];
   }
   return matriz;
 }
@@ -36,13 +42,17 @@ void imprimir_matriz(int **matriz, int dim)
   int i, j;
   for (i = 0; i < dim; i++)
   {
-    for (j = 0; j < dim; j++)
-    {
-      if (i >= j)
-        printf("%d ", matriz[i][j]);
-      else
-        printf("0 ");
-    }
+    for (j = 0; j <= i; j++)
+      printf("%d ", matriz[i][j]);
     printf("\n");
   }
+}
+
+ void eliminar_matriz(int ***matriz, int dim)
+{
+  int i, j;
+  for (i = 0; i < dim; i++)
+    free((*matriz)[i]);
+  free(*matriz);
+  *matriz = NULL;
 }
