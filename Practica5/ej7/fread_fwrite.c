@@ -5,6 +5,7 @@ int main()
 {
     FILE *srcFile, *dstFile;
     char buffer[BUFFSIZE];
+    size_t n;
 
     srcFile = fopen("sourceFile.txt", "r");
     dstFile = fopen("destinationFile.txt", "w");
@@ -15,9 +16,9 @@ int main()
         return 0;
     }
 
-    while (fgets(buffer, BUFFSIZE, srcFile) != NULL)
+    while ((n = fread(buffer, sizeof(char), BUFFSIZE, srcFile)) > 0)
     {
-        fputs(buffer, dstFile);
+        fwrite(buffer, sizeof(char), n, dstFile);
     }
 
     printf("File copied successfully.\n");
