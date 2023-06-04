@@ -19,9 +19,10 @@ float suma(matriz m, int n){
     return sum;
 }
 
-void liberar(matriz m, int n){
+void liberar(matriz *m, int n){
     for(int i=0; i<n; i++){
-        free(m[i]);
+        free((*m)[i]);
     }
-    free(m);
+    free(*m);
+    *m = NULL;
 }
