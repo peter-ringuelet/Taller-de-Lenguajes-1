@@ -7,7 +7,8 @@ int main() {
             printf("%d(%d)  ",i, MOSTRAR);         
             #undef MOSTRAR
         #else
-            #define MOSTRAR 0     
+            #define MOSTRAR 0
+            printf("%d", MOSTRAR); //no imprime esto
         #endif
     }
     return 0; 
