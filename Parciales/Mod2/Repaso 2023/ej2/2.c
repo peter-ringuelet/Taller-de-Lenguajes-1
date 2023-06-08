@@ -1,12 +1,10 @@
 #include <stdio.h> 
-#define MOSTRAR 1 
+#define MOSTRAR 1
 int main() { 
     int i;
-    printf("%d\n", MOSTRAR);
     for (i=10; i>5; i--) {   
-        printf("%d\n", MOSTRAR); 
         #ifdef MOSTRAR         
-            printf("%d  ",i);         
+            printf("%d(%d)  ",i, MOSTRAR);         
             #undef MOSTRAR
         #else
             #define MOSTRAR 0     
